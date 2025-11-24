@@ -895,15 +895,3 @@ podman network inspect outfit-network
 This is expected - see [Mocked Components](#-mocked-components) section. To enable real generation, integrate Vertex AI Imagen or DALL-E 3.
 
 ---
-
-## 📞 Support
-
-For issues or questions:
-- Open an issue on GitHub
-- Check existing documentation
-- Review error logs in container output
-- See troubleshooting section above
-
----
-
-**Built with ❤️ by the Project Aura team**
