@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Containerfile
+    container_name: outfit-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - FLASK_ENV=production
+    networks:
+      - outfit-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Containerfile
+    container_name: outfit-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5000/api
+      - BACKEND_INTERNAL_URL=http://backend:5000/api
+      - DATABASE_URL=file:./dev.db
+    networks:
+      - outfit-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  outfit-network:
+    driver: bridge
