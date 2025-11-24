@@ -20,9 +20,15 @@ def test_agent_state_structure():
 
     # Check that all expected keys are present
     expected_keys = [
-        "original_image", "user_query", "analysis_mode", "visual_analysis",
-        "trend_summary", "final_report", "generated_image_url", "generation_prompt",
-        "agent_logs"
+        "original_image",
+        "user_query",
+        "analysis_mode",
+        "visual_analysis",
+        "trend_summary",
+        "final_report",
+        "generated_image_url",
+        "generation_prompt",
+        "agent_logs",
     ]
 
     for key in expected_keys:
@@ -41,8 +47,8 @@ def test_config_model_selection():
     assert IMAGE_MODEL == "gemini-2.5-flash-image"
 
 
-@patch('app.agents.multi_model.genai.GenerativeModel')
-@patch('app.agents.multi_model.Image')
+@patch("app.agents.multi_model.genai.GenerativeModel")
+@patch("app.agents.multi_model.Image")
 def test_analyze_image_success(mock_image_class, mock_model_class):
     """Test successful image analysis."""
     from app.agents.multi_model import analyze_image
@@ -61,21 +67,25 @@ def test_analyze_image_success(mock_image_class, mock_model_class):
     mock_model.generate_content.return_value = mock_desc_response
 
     # Mock DSPy
-    with patch('app.agents.multi_model.dspy.ChainOfThought') as mock_dspy:
+    with patch("app.agents.multi_model.dspy.ChainOfThought") as mock_dspy:
         mock_analyzer = MagicMock()
-        mock_analyzer.return_value = type('Result', (), {
-            'gender_style': 'masculine',
-            'cut': 'casual fit',
-            'color': 'blue and white',
-            'fabric': 'cotton',
-            'occasion': 'casual'
-        })()
+        mock_analyzer.return_value = type(
+            "Result",
+            (),
+            {
+                "gender_style": "masculine",
+                "cut": "casual fit",
+                "color": "blue and white",
+                "fabric": "cotton",
+                "occasion": "casual",
+            },
+        )()
         mock_dspy.return_value = mock_analyzer
 
         state_dict = {
             "original_image": b"fake_image",
             "user_query": "What to wear?",
-            "analysis_mode": "quick"
+            "analysis_mode": "quick",
         }
 
         result = analyze_image(state_dict)
@@ -84,7 +94,7 @@ def test_analyze_image_success(mock_image_class, mock_model_class):
         assert result["visual_analysis"]["gender_style"] == "masculine"
 
 
-@patch('app.agents.multi_model.genai.GenerativeModel')
+@patch("app.agents.multi_model.genai.GenerativeModel")
 def test_generate_outfit_success(mock_model_class):
     """Test successful outfit generation."""
     from app.agents.multi_model import generate_outfit
@@ -114,7 +124,7 @@ def test_generate_outfit_success(mock_model_class):
         "visual_analysis": {"cut": "casual", "color": "blue"},
         "user_query": "Casual look",
         "analysis_mode": "quick",
-        "agent_logs": []
+        "agent_logs": [],
     }
 
     result = generate_outfit(state_dict)
@@ -123,21 +133,18 @@ def test_generate_outfit_success(mock_model_class):
     assert result["generated_image_url"].startswith("data:image/png;base64,")
 
 
-@patch('app.agents.trending.dspy.ChainOfThought')
+@patch("app.agents.trending.dspy.ChainOfThought")
 def test_trending_agent(mock_dspy):
     """Test trending agent functionality."""
     from app.agents.trending import fetch_trends
 
     mock_analyzer = MagicMock()
-    mock_analyzer.return_value = type('Result', (), {
-        'trend_summary': '**Casual Style:** Popular trends include...'
-    })()
+    mock_analyzer.return_value = type(
+        "Result", (), {"trend_summary": "**Casual Style:** Popular trends include..."}
+    )()
     mock_dspy.return_value = mock_analyzer
 
-    state_dict = {
-        "user_query": "Casual outfit",
-        "agent_logs": []
-    }
+    state_dict = {"user_query": "Casual outfit", "agent_logs": []}
 
     result = fetch_trends(state_dict)
 
@@ -145,22 +152,22 @@ def test_trending_agent(mock_dspy):
     assert "Casual Style" in result["trend_summary"]
 
 
-@patch('app.agents.analysis.dspy.ChainOfThought')
+@patch("app.agents.analysis.dspy.ChainOfThought")
 def test_analysis_agent(mock_dspy):
     """Test analysis agent functionality."""
     from app.agents.analysis import synthesize_advice
 
     mock_analyzer = MagicMock()
-    mock_analyzer.return_value = type('Result', (), {
-        'advice': 'This outfit works well for casual occasions...'
-    })()
+    mock_analyzer.return_value = type(
+        "Result", (), {"advice": "This outfit works well for casual occasions..."}
+    )()
     mock_dspy.return_value = mock_analyzer
 
     state_dict = {
         "visual_analysis": {"gender_style": "masculine", "occasion": "casual"},
         "trend_summary": "Casual trends",
         "user_query": "What to wear?",
-        "agent_logs": []
+        "agent_logs": [],
     }
 
     result = synthesize_advice(state_dict)
