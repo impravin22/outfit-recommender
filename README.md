@@ -569,6 +569,9 @@ npm run build                # Build for production
 # Database management (Prisma)
 npx prisma studio            # Open database GUI
 npx prisma migrate reset     # Reset database
+
+# Testing
+cd backend && uv run pytest   # Run backend unit tests
 ```
 
 ---
@@ -749,8 +752,13 @@ curl -X POST http://localhost:5000/api/analyze \
 
 ```bash
 cd backend
-uv run pytest  # If tests are added later
+uv run pytest
 ```
+
+**Test Coverage:**
+- API endpoints (health, analyze)
+- Agent functionality (when implemented)
+- Error handling
 
 ---
 
