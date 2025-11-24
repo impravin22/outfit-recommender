@@ -757,7 +757,8 @@ uv run pytest
 
 **Test Coverage:**
 - API endpoints (health, analyze)
-- Agent functionality (when implemented)
+- Agent functionality (vision, trends, analysis, generation)
+- Model configuration
 - Error handling
 
 ---
