@@ -178,10 +178,11 @@ Professional fashion editorial photography:
 - Fabric: {visual.get("fabric", "high-quality materials")}
 - Occasion: {visual.get("occasion", "professional setting")}
 - Personal request: {query or "Tailor to the user's stated preference"}
-- Setting: Clean white studio background, professional lighting
-- Shot: Full body, fashion editorial style, high detail, 8K quality
+- IMPORTANT: Keep the exact same person, face, facial expression, pose, and background from the reference image. Only change the clothing/outfit to match the new style guidance.
+- Setting: Same background as reference image, professional lighting
+- Shot: Full body, same pose and composition as reference image, high detail, 8K quality
 - Mood: Sophisticated, professional, current trends
-- Reference: Start from the provided outfit photo and preserve the person's overall appearance while upgrading wardrobe elements to fit the guidance.
+- Reference: Use the provided outfit photo as base - preserve the person's identity, face, hair, body type, pose, and background completely unchanged. Only modify the wardrobe items.
         """.strip()
 
         logger.debug(
@@ -263,7 +264,7 @@ def _generate_image_from_gemini(
         image_model = genai.GenerativeModel(IMAGE_MODEL)
 
         messages: list[Any] = [
-            "Upgrade the reference outfit into a polished, professional look while keeping the wearer recognizable.",
+            "Generate a new image that keeps the exact same person, face, facial expression, pose, body type, and background from the reference image. Only change the clothing and outfit to match the professional styling guidance provided. Do not alter the person's appearance, hair, or any other physical features.",
         ]
 
         if stylist_advice:

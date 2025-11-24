@@ -95,7 +95,9 @@ chmod +x run-podman.sh
 # Start all services
 ./run-podman.sh start
 
-# Access at http://localhost:3000
+# Access at http://localhost:3000 (or check Podman machine IP if running on macOS)
+# To find the IP: podman machine inspect | grep IPAddress
+# Then access at http://<IP>:3000
 ```
 
 ---
