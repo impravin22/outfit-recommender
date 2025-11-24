@@ -1,8 +1,6 @@
 """Unit tests for agent modules."""
 
-import pytest
-from unittest.mock import patch, MagicMock
-from app.agents import state, config
+from unittest.mock import MagicMock, patch
 
 
 def test_agent_state_structure():
@@ -33,7 +31,7 @@ def test_agent_state_structure():
 
 def test_config_model_selection():
     """Test that config selects correct models based on mode."""
-    from app.agents.multi_model import VISION_MODELS, IMAGE_MODEL
+    from app.agents.multi_model import IMAGE_MODEL, VISION_MODELS
 
     # Test vision models
     assert VISION_MODELS["quick"] == "gemini-2.5-flash"
@@ -154,7 +152,7 @@ def test_analysis_agent(mock_dspy):
 
     mock_analyzer = MagicMock()
     mock_analyzer.return_value = type('Result', (), {
-        'final_report': 'This outfit works well for casual occasions...'
+        'advice': 'This outfit works well for casual occasions...'
     })()
     mock_dspy.return_value = mock_analyzer
 

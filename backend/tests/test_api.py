@@ -1,6 +1,5 @@
 """Unit tests for the outfit recommender backend."""
 
-import pytest
 from app.main import app
 
 
@@ -10,7 +9,7 @@ def test_health_endpoint():
         response = client.get('/api/health')
         assert response.status_code == 200
         data = response.get_json()
-        assert data == {"status": "healthy"}
+        assert data == {"status": "ok"}
 
 
 def test_analyze_endpoint_no_image():
