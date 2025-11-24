@@ -69,6 +69,23 @@ npm run dev
 
 ### 🐳 Alternative: Run with Containers
 
+#### Installing Podman on macOS
+
+If you don't have Podman installed, you can install it using Homebrew:
+
+```bash
+# Install Podman
+brew install podman
+
+# Initialize Podman machine (first time only)
+podman machine init
+
+# Start Podman machine
+podman machine start
+```
+
+**Note**: Podman provides a Docker-compatible CLI, so you can use `podman` commands instead of `docker` if preferred.
+
 If you prefer containers (requires Podman/Docker):
 
 ```bash
@@ -340,23 +357,6 @@ uv run ruff format .         # Format code
 ---
 
 ## 🐳 Container Deployment
-
-### Installing Podman on macOS
-
-If you don't have Podman installed, you can install it using Homebrew:
-
-```bash
-# Install Podman
-brew install podman
-
-# Initialize Podman machine (first time only)
-podman machine init
-
-# Start Podman machine
-podman machine start
-```
-
-**Note**: Podman provides a Docker-compatible CLI, so you can use `podman` commands instead of `docker` if preferred.
 
 ### Using Podman (Recommended)
 
