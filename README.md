@@ -1,5 +1,3 @@
-# Project Aura - AI Fashion Stylist Agent
-
 A production-ready, multi-agent AI system that analyzes outfit images and provides personalized fashion recommendations using Google Gemini models and LangGraph orchestration.
 
 ## 🚀 Quick Start (Local Development)
@@ -129,7 +127,12 @@ chmod +x run-podman.sh
 
 ## 🏗️ Architecture
 
+
 ### System Architecture Diagram
+
+<img width="1093" height="1355" alt="image" src="https://github.com/user-attachments/assets/3b251991-8a03-45c9-af7e-61708441221c" />
+
+
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
