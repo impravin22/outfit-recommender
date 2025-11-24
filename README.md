@@ -675,45 +675,17 @@ outfit-recommender/
 
 ### ⚠️ Image Generation
 
-**Status**: Partially mocked
+**Status**: Partially functional with limitations
 
-**Reason**: Gemini API's `gemini-2.5-flash-image` model may not support direct image generation via `generate_content()`. Real image generation requires Google Cloud Vertex AI Imagen.
+**Current Implementation**: Uses Gemini 2.5 Flash Image API with reference image and detailed prompts to attempt outfit modification while preserving person/background.
 
-**Current Behavior**:
-- System generates detailed prompt
-- Attempts API call to `gemini-2.5-flash-image`
-- May return empty response or placeholder
-- Falls back gracefully with error message
+**Limitations**:
+- May not perfectly preserve exact facial features, expressions, or background
+- Can return empty responses or fail to generate images
+- Not designed specifically for "virtual try-on" style clothing changes
+- Subject to API rate limits and availability
 
-**How to Integrate Real Generation**:
-
-1. **Option 1: Vertex AI Imagen** (Recommended)
-   ```python
-   from google.cloud import aiplatform
-   
-   aiplatform.init(project="your-project", location="us-central1")
-   model = aiplatform.ImageGenerationModel.from_pretrained("imagegeneration@006")
-   response = model.generate_images(prompt=generation_prompt)
-   ```
-
-2. **Option 2: OpenAI DALL-E 3**
-   ```python
-   import openai
-   response = openai.images.generate(
-       model="dall-e-3",
-       prompt=generation_prompt,
-       size="1024x1792"
-   )
-   ```
-
-3. **Option 3: Stable Diffusion (Replicate)**
-   ```python
-   import replicate
-   output = replicate.run(
-       "stability-ai/sdxl:...",
-       input={"prompt": generation_prompt}
-   )
-   ```
+**Recommended for Production**: Google Cloud Vertex AI Imagen or specialized virtual try-on APIs for more reliable results.
 
 ### ✅ Working Components
 
@@ -761,6 +733,7 @@ curl -X POST http://localhost:5000/api/analyze \
 
 ```bash
 cd backend
+uv sync --dev --extra dev  # Install test dependencies
 uv run pytest
 ```
 
