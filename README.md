@@ -100,6 +100,15 @@ chmod +x run-podman.sh
 # Then access at http://<IP>:3000
 ```
 
+
+### Screenshots:
+
+<img width="2840" height="1686" alt="image" src="https://github.com/user-attachments/assets/cb1d717e-414e-4e87-aed2-145d3f077a75" />
+
+<img width="2670" height="1656" alt="image" src="https://github.com/user-attachments/assets/0e9fe4e7-1571-4306-b833-cae64d6c5770" />
+
+Use Gemini 2.5 Flash for faster results, and 2.5 pro for better results.
+
 ---
 
 ## 📋 Table of Contents
